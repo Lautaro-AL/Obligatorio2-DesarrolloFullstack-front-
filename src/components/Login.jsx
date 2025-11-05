@@ -2,7 +2,8 @@ import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router";
 import axios from "axios";
-import { loguear } from "../features/user.slice";
+import { loguear } from "../features/usuario.slice";
+import { Loader2 } from "lucide-react";
 
 const Login = () => {
   const campoUsuario = useRef(null);
@@ -10,9 +11,11 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [error, setErorr] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const ingresar = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const username = campoUsuario.current.value;
     const password = campoPassword.current.value;
     try {
@@ -25,11 +28,15 @@ const Login = () => {
       );
 
       localStorage.setItem("token", response.data.token);
+      localStorage.setItem("username", username);
+
       dispatch(loguear());
       navigate("/dashboard");
     } catch (err) {
       console.error(err);
       setErorr(err.response?.data?.message || "Credenciales inválidas");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -60,12 +67,25 @@ const Login = () => {
             />
             {error && <p className="error">{error}</p>}
 
-            <button type="submit" className="btn btn-primary">
-              Entrar
+            <button
+              type="submit"
+              className="btn btn-primary"
+              disabled={loading}
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="icon-spin" size={18} />
+                </>
+              ) : (
+                "Login"
+              )}
             </button>
 
             <p className="text-small">
-              No tenes una cuenta? <Link to="/registro">Registrate</Link>
+              No tenes una cuenta?{" "}
+              <Link to="/registro" id="link">
+                Registrate
+              </Link>
             </p>
           </form>
         </div>

@@ -1,45 +1,106 @@
-import { Link } from "react-router";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router";
+import axios from "axios";
+import { loguear } from "../features/usuario.slice";
+import { Loader2 } from "lucide-react";
+import { registerSchema } from "../validators/auth.validators";
+import { useForm } from "react-hook-form";
+import { joiResolver } from "@hookform/resolvers/joi";
 
 const Registro = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: joiResolver(registerSchema),
+  });
+
+  const onSubmit = async (data) => {
+    setError(null);
+    setLoading(true);
+    const { username, password, confirmPassword } = data;
+    if (password !== confirmPassword) {
+      setError("Las contraseñas no coinciden");
+      setLoading(false);
+      return;
+    }
+    try {
+      const response = await axios.post(
+        "https://obligatorio1-desarrollo-fullstack-v.vercel.app/v1/auth/register",
+        { username, password, confirmPassword }
+      );
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("username", username);
+      dispatch(loguear({ username, token: response.data.token }));
+      navigate("/dashboard");
+    } catch (err) {
+      console.error(err);
+      const apiError =
+        err.response?.data?.error || "Error inesperado en el registro";
+      setError(apiError);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="container">
       <div className="card">
         <h2>Crear cuenta</h2>
-        <form className="form">
+
+        <form className="form" onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor="username">Nombre de usuario</label>
           <input
-            type="text"
             id="username"
-            name="username"
             placeholder="Tu usuario"
-            required
+            {...register("username")}
           />
-
+          {errors.username && (
+            <p className="error">{errors.username.message}</p>
+          )}
           <label htmlFor="password">Contraseña</label>
           <input
             type="password"
             id="password"
-            name="password"
             placeholder="********"
-            required
+            {...register("password")}
           />
-
+          {errors.password && (
+            <p className="error">{errors.password.message}</p>
+          )}
           <label htmlFor="confirmPassword">Repetir contraseña</label>
           <input
             type="password"
             id="confirmPassword"
-            name="confirmPassword"
             placeholder="********"
-            required
+            {...register("confirmPassword")}
           />
+          {errors.confirmPassword && (
+            <p className="error">{errors.confirmPassword.message}</p>
+          )}
 
-          <button type="submit" className="btn btn-primary">
-            Registrarse
+          <button type="submit" className="btn btn-primary" disabled={loading}>
+            {loading ? (
+              <Loader2 className="icon-spin" size={18} />
+            ) : (
+              "Registrarse"
+            )}
           </button>
 
+          {error && <p className="error">{error}</p>}
+
           <p className="text-small">
-            ¿Ya tenés cuenta?
-            <Link to="/">Iniciar sesión</Link>
+            ¿Ya tenés cuenta?{" "}
+            <Link to="/" id="link">
+              Iniciar sesión
+            </Link>
           </p>
         </form>
       </div>

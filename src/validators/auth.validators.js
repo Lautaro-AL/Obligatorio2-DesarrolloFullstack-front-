@@ -16,6 +16,8 @@ export const registerSchema = Joi.object({
       "string.empty": "La contraseña no puede estar vacía",
       "string.min": "La contraseña debe tener al menos {#limit} caracteres",
       "any.required": "La contraseña es obligatoria",
+      "string.pattern.base":
+        "La contraseña solo puede contener letras y números",
     }),
   confirmPassword: Joi.string().required().valid(Joi.ref("password")).messages({
     "any.only": "Las contraseñas no coinciden",
@@ -39,6 +41,8 @@ export const loginSchema = Joi.object({
       "string.empty": "La contraseña no puede estar vacía",
       "string.min": "La contraseña debe tener al menos {#limit} caracteres",
       "any.required": "La contraseña es obligatoria",
+      "string.pattern.base":
+        "La contraseña solo puede contener letras y números",
     }),
 });
 

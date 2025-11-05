@@ -12,11 +12,14 @@ const usuarioSlice = createSlice({
     loguear: (state) => {
       state.isLogged = true;
       state.token = localStorage.getItem("token");
+      state.username = localStorage.getItem("username") || "Usuario";
     },
     desloguear: (state) => {
       state.isLogged = false;
       state.token = null;
+      state.username = null;
       localStorage.removeItem("token");
+      localStorage.removeItem("username");
     },
   },
 });
