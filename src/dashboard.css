@@ -203,3 +203,25 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+
+.crear-playlist-form {
+  display: flex;
+  align-items: center; /* ✅ centra verticalmente los inputs y botones */
+  gap: 1rem; /* separación entre campos y botones */
+  width: 100%;
+  flex-wrap: wrap; /* si el espacio no alcanza, bajan automáticamente */
+}
+
+.crear-playlist-form input {
+  flex: 1; /* ✅ los inputs ocupan todo el espacio disponible */
+  min-width: 200px;
+  padding: 0.5rem;
+}
+
+.crear-playlist-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-left: auto; /* ✅ empuja los botones a la derecha */
+}

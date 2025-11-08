@@ -4,31 +4,52 @@ import { useNavigate } from "react-router";
 import { Edit2, Trash2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import "../dashboard.css";
+import CrearPlaylist from "./dashboard/CrearPlaylist";
+
 const Dashboard = () => {
   const [playlists, setPlaylists] = useState([]);
   const navigate = useNavigate();
+  const [mostrarCrear, setMostrarCrear] = useState(false);
+  const token = localStorage.getItem("token");
+  const crearPlaylist = () => {
+    navigate("crear-playlist");
+  };
 
   const detallesPlaylist = (id) => {
     console.log("Ver detalles de playlist:", id);
     navigate(`/dashboard/playlist/${id}`);
   };
-  const { t } = useTranslation();
-  useEffect(() => {
-    const listarPlaylists = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const res = await axios.get(
-          "https://obligatorio1-desarrollo-fullstack-v.vercel.app/v1/playlist",
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
-        setPlaylists(res.data);
-      } catch (err) {
-        console.error("Error cargando playlists", err);
-      }
-    };
 
+  const eliminarPlaylist = async (playlist) => {
+    if (window.confirm(`¿Eliminar la playlist "${playlist.nombre}"?`)) {
+      try {
+        await axios.delete(
+          `https://obligatorio1-desarrollo-fullstack-v.vercel.app/v1/playlist/${playlist._id}`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        listarPlaylists();
+      } catch (err) {
+        console.error("Error eliminando playlist", err);
+      }
+    }
+  };
+  const { t } = useTranslation();
+
+  const listarPlaylists = async () => {
+    try {
+      const res = await axios.get(
+        "https://obligatorio1-desarrollo-fullstack-v.vercel.app/v1/playlist",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      setPlaylists(res.data);
+    } catch (err) {
+      console.error("Error cargando playlists", err);
+    }
+  };
+
+  useEffect(() => {
     listarPlaylists();
   }, []);
 
@@ -37,14 +58,31 @@ const Dashboard = () => {
     <div className="dashboard">
       <div className="dashboard-top">
         <h1 className="dashboard-title">{t("playlist")}</h1>
-        <button
-          className="btn btn-create"
-          onClick={() => navigate("/crear-playlist")}
-        >
-          + Crear nueva playlist
-        </button>
-      </div>
 
+        <div
+          className={`crear-playlist-inline ${mostrarCrear ? "activo" : ""}`}
+        >
+          {!mostrarCrear && (
+            <button
+              className="btn btn-create"
+              onClick={() => setMostrarCrear(true)}
+            >
+              + Crear nueva playlist
+            </button>
+          )}
+
+          {mostrarCrear && (
+            <CrearPlaylist
+              token={token}
+              onClose={() => setMostrarCrear(false)}
+              onCreated={() => {
+                listarPlaylists();
+                setMostrarCrear(false);
+              }}
+            />
+          )}
+        </div>
+      </div>
       <section className="playlist-grid">
         {playlists.length > 0 ? (
           playlists.map((p) => (
