@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router";
 import axios from "axios";
 import { loguear } from "../features/usuario.slice";
 import { Loader2 } from "lucide-react";
-
+import "../auth.css";
 const Login = () => {
   const campoUsuario = useRef(null);
   const campoPassword = useRef(null);
@@ -42,8 +42,8 @@ const Login = () => {
 
   return (
     <div>
-      <div className="container">
-        <div className="card">
+      <div className="containerAuth">
+        <div className="card " id="clogin">
           <h2>Iniciar sesión</h2>
           <form className="form" onSubmit={ingresar}>
             <label htmlFor="username">Nombre de usuario</label>

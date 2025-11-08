@@ -14,7 +14,7 @@ const NoEncontrado = () => {
       } else {
         navigate("/");
       }
-    }, 5000);
+    }, 3500);
     return () => clearTimeout(timer);
   }, [navigate, isLogged]);
 

@@ -4,6 +4,7 @@ import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
 import NoEncontrado from "./components/NoEncontrado";
 import Registro from "./components/Registro";
+import Upload from "./components/Upload";
 import { BrowserRouter, Routes, Route } from "react-router";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
@@ -18,6 +19,7 @@ const App = () => {
           <Route path="/" element={<Contenedor />}>
             <Route path="/" element={<Login />} />
             <Route path="/registro" element={<Registro />} />
+            <Route path="/upload" element={<Upload />} />
             <Route path="/dashboard" element={<ProtectedRoute />}>
               <Route path="/dashboard" element={<Dashboard />} />
             </Route>

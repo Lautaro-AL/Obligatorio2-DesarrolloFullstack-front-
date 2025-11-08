@@ -1,16 +1,25 @@
 import { NavLink, Outlet, useNavigate } from "react-router";
 import { desloguear } from "../features/usuario.slice";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const Contenedor = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { username, isLogged } = useSelector((state) => state.usuario);
+
+  const { t, i18n } = useTranslation();
+
   const cerrarSesion = () => {
     localStorage.removeItem("token"); // limpia token local
     dispatch(desloguear()); // resetea el slice
     navigate("/"); // redirige al login
   };
+  const cambiarIdioma = () => {
+    const nuevoIdioma = i18n.language === "es" ? "en" : "es";
+    i18n.changeLanguage(nuevoIdioma);
+  };
+
   const modificarUsuario = () => {
     navigate("/modificar-usuario");
   };
@@ -28,7 +37,7 @@ const Contenedor = () => {
                 {username}
               </a>
               <button onClick={cerrarSesion} className="logout-btn">
-                Logout
+                {t("Logout")}
               </button>
             </>
           )}
@@ -38,6 +47,10 @@ const Contenedor = () => {
       <main className="main-content">
         <Outlet />
       </main>
+
+      <button className="btn-idioma" onClick={cambiarIdioma} title="idiomas">
+        🌐
+      </button>
     </div>
   );
 };

@@ -51,7 +51,7 @@ const Registro = () => {
   };
 
   return (
-    <div className="container">
+    <div className="containerAuth">
       <div className="card">
         <h2>Crear cuenta</h2>
 
