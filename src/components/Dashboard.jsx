@@ -11,13 +11,15 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [mostrarCrear, setMostrarCrear] = useState(false);
   const token = localStorage.getItem("token");
-  const crearPlaylist = () => {
-    navigate("crear-playlist");
-  };
+  const { t } = useTranslation();
 
   const detallesPlaylist = (id) => {
     console.log("Ver detalles de playlist:", id);
-    navigate(`/dashboard/playlist/${id}`);
+    navigate(`/dashboard/detalles-playlist/${id}`);
+  };
+  const modificarPlaylist = (id) => {
+    console.log("Modificar playlist:", id);
+    navigate(`/dashboard/modificar-playlist/${id}`);
   };
 
   const eliminarPlaylist = async (playlist) => {
@@ -33,7 +35,6 @@ const Dashboard = () => {
       }
     }
   };
-  const { t } = useTranslation();
 
   const listarPlaylists = async () => {
     try {
@@ -54,7 +55,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    //CAMBIAR LOS ONCLICK Y HACER PAG PARA LAS ACCIONES, BORRAR, MODIFICAR, VER DETALLES
+    //CAMBIAR EL ALERT AL ELIMNIAR POR LOS CARTELES DE LA ULT CLASE
     <div className="dashboard">
       <div className="dashboard-top">
         <h1 className="dashboard-title">{t("playlist")}</h1>
@@ -67,7 +68,7 @@ const Dashboard = () => {
               className="btn btn-create"
               onClick={() => setMostrarCrear(true)}
             >
-              + Crear nueva playlist
+              {t("createPlaylist")}
             </button>
           )}
 
@@ -91,14 +92,7 @@ const Dashboard = () => {
               className="playlist-card"
               onClick={() => detallesPlaylist(p._id)}
             >
-              <img
-                src={
-                  p.imagenUrl ||
-                  "https://e.snmc.io/i/300/s/7e831d86dadb959c73940e14dec1d653/8952988"
-                }
-                alt={p.nombre}
-                className="playlist-image"
-              />
+              <img src={p.imagen} alt={p.nombre} className="playlist-image" />
 
               <div className="playlist-info">
                 <h3>{p.nombre}</h3>
@@ -112,7 +106,7 @@ const Dashboard = () => {
               >
                 <button
                   className="btn-icon edit"
-                  onClick={() => editarPlaylist(p)}
+                  onClick={() => modificarPlaylist(p._id)}
                   title="Editar playlist"
                 >
                   <Edit2 size={18} />

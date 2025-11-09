@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Joi from "joi";
 import { joiResolver } from "@hookform/resolvers/joi";
+import "../upload.css";
 
 const schema = Joi.object({
   image: Joi.any()
@@ -27,7 +28,7 @@ const schema = Joi.object({
     }),
 });
 
-const Upload = () => {
+const Upload = ({ onUploadComplete }) => {
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -47,8 +48,8 @@ const Upload = () => {
     const file = data.image[0];
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", "presetObligatorioDFS");
-    formData.append("cloud_name", "dcj4d4puq");
+    formData.append("upload_preset", "presetObligatorioDFS"); // preset unsigned
+    formData.append("cloud_name", "dcj4d4puq"); // cloud name
 
     try {
       const res = await fetch(
@@ -61,59 +62,45 @@ const Upload = () => {
       const uploaded = await res.json();
       setUrl(uploaded.secure_url);
       reset();
+
+      if (onUploadComplete) onUploadComplete(uploaded.secure_url);
+
+      localStorage.setItem("lastUploadedImage", uploaded.secure_url);
     } catch (err) {
       console.error("Error al subir imagen:", err);
     } finally {
       setLoading(false);
     }
   };
-
   return (
-    <div className="container">
-      <div className="card">
-        <h2>Subir imagen a Cloudinary</h2>
+    <div className="upload-container">
+      <div className="upload-box">
+        <input type="file" {...register("image")} />
+        {errors.image && <p className="error">{errors.image.message}</p>}
 
-        <form className="form" onSubmit={handleSubmit(onSubmit)}>
-          <label htmlFor="image">Seleccioná una imagen</label>
-          <input type="file" id="image" {...register("image")} />
-
-          {errors.image && <p className="error">{errors.image.message}</p>}
-
-          <button type="submit" className="btn btn-primary" disabled={loading}>
-            {loading ? "Subiendo..." : "Subir"}
-          </button>
-        </form>
-
-        {url && (
-          <div style={{ marginTop: "1.5rem", textAlign: "center" }}>
-            <h4>Imagen subida:</h4>
-            <img
-              src={url.replace(
-                "/upload/",
-                "/upload/c_scale,w_300/f_auto/q_auto/"
-              )}
-              alt="upload"
-              width="300"
-              style={{
-                borderRadius: "10px",
-                marginTop: "0.5rem",
-                boxShadow: "0 4px 12px rgba(0,0,0,0.4)",
-              }}
-            />
-            <p style={{ marginTop: "0.5rem" }}>
-              URL original:{" "}
-              <a
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="link"
-              >
-                Ver imagen completa
-              </a>
-            </p>
-          </div>
-        )}
+        <button
+          type="button"
+          onClick={handleSubmit(onSubmit)}
+          disabled={loading}
+          className="btn btn-primary"
+        >
+          {loading ? "Subiendo..." : "Subir"}
+        </button>
       </div>
+
+      {url && (
+        <div className="preview">
+          <h4>Imagen subida:</h4>
+          <img
+            src={url.replace(
+              "/upload/",
+              "/upload/c_scale,w_300/f_auto/q_auto/"
+            )}
+            alt="upload"
+            width="300"
+          />
+        </div>
+      )}
     </div>
   );
 };

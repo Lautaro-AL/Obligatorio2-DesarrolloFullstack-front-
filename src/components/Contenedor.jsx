@@ -7,9 +7,11 @@ const Contenedor = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { username, isLogged } = useSelector((state) => state.usuario);
-
   const { t, i18n } = useTranslation();
 
+  const logo = () => {
+    navigate("/dashboard");
+  };
   const cerrarSesion = () => {
     localStorage.removeItem("token"); // limpia token local
     dispatch(desloguear()); // resetea el slice
@@ -26,9 +28,9 @@ const Contenedor = () => {
   return (
     <div className="layout">
       <header className="navbar">
-        <p className="navbar-logo" to="/dashboard">
+        <a className="navbar-logo" onClick={logo}>
           🎧
-        </p>
+        </a>
 
         <nav className="navbar-links">
           {isLogged && (

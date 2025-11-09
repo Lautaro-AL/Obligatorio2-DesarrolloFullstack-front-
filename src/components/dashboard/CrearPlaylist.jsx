@@ -22,6 +22,10 @@ const CrearPlaylist = ({ token, onCreated, onClose }) => {
     setLoading(true);
     setError(null);
 
+    if (!data.imagen || data.imagen.trim() === "") {
+      data.imagen =
+        "https://res.cloudinary.com/dcj4d4puq/image/upload/v1762435853/samples/waves.png";
+    }
     try {
       await axios.post(
         "https://obligatorio1-desarrollo-fullstack-v.vercel.app/v1/playlist",
@@ -30,7 +34,7 @@ const CrearPlaylist = ({ token, onCreated, onClose }) => {
       );
 
       reset();
-      onCreated?.(); // ✅ notificar al Dashboard que se creó
+      onCreated?.();
     } catch (err) {
       console.error(err);
       setError(err.response?.data?.message || "Error al crear la playlist");
@@ -58,6 +62,14 @@ const CrearPlaylist = ({ token, onCreated, onClose }) => {
       {errors.descripcion && (
         <p className="error">{errors.descripcion.message}</p>
       )}
+
+      <input
+        type="text"
+        placeholder="Imgagen URL"
+        {...register("imagen")}
+        className={errors.imagen ? "input-error" : ""}
+      />
+      {errors.imagen && <p className="error">{errors.imagen.message}</p>}
 
       <div className="crear-playlist-buttons">
         <button

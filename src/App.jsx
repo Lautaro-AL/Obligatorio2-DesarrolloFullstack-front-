@@ -10,6 +10,8 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ModificarPlaylist from "./components/dashboard/ModificarPlaylist";
+import DetallesPlaylist from "./components/dashboard/DetallesPlaylist";
 import "./styles.css";
 
 const App = () => {
@@ -24,6 +26,14 @@ const App = () => {
             <Route path="/dashboard" element={<ProtectedRoute />}>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="crear-playlist" element={<CrearPlaylist />} />
+              <Route
+                path="modificar-playlist/:id"
+                element={<ModificarPlaylist />}
+              />
+              <Route
+                path="detalles-playlist/:id"
+                element={<DetallesPlaylist />}
+              />
             </Route>
             <Route path="*" element={<NoEncontrado />} />
           </Route>
