@@ -24,7 +24,7 @@ const CrearPlaylist = ({ token, onCreated, onClose }) => {
 
     if (!data.imagen || data.imagen.trim() === "") {
       data.imagen =
-        "https://res.cloudinary.com/dcj4d4puq/image/upload/v1762435853/samples/waves.png";
+        "https://res.cloudinary.com/dcj4d4puq/image/upload/v1762731361/v4mzetlhexztb0j3ocay.avif";
     }
     try {
       await axios.post(
@@ -65,7 +65,7 @@ const CrearPlaylist = ({ token, onCreated, onClose }) => {
 
       <input
         type="text"
-        placeholder="Imgagen URL"
+        placeholder="Imagen URL"
         {...register("imagen")}
         className={errors.imagen ? "input-error" : ""}
       />

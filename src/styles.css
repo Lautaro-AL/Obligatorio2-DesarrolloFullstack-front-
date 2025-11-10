@@ -6,18 +6,33 @@
   font-family: "Inter", "Poppins", sans-serif;
 }
 
-html,
-body,
+html {
+  height: auto; /* permite que la altura crezca según contenido */
+  scroll-behavior: smooth; /* opcional, para scroll suave */
+}
+
+body {
+  min-height: 100vh; /* asegura que al menos ocupe la pantalla */
+  background-color: #10002b;
+  color: #e0aaff;
+  overflow-y: auto; /* scroll vertical solo cuando sea necesario */
+  overflow-x: hidden; /* evita scroll horizontal */
+}
+
 #root {
-  height: 100%;
+  min-height: 100%; /* crecerá con el contenido */
+  display: flex;
+  flex-direction: column; /* útil si tenés navbar + contenido */
 }
 
 body {
   min-height: 100vh;
-  background: linear-gradient(135deg, #10002b, #240046, #3c096c);
+  background-color: #10002b;
   color: #e0aaff;
-  overflow-x: hidden;
+  overflow-y: auto; /* scroll vertical solo si es necesario */
+  overflow-x: hidden; /* evita scroll horizontal */
 }
+
 /* === PÁGINA 404 GENERAL === */
 .notfound-container {
   display: flex;
@@ -73,6 +88,7 @@ body {
 .icon-spin {
   color: #c77dff;
   animation: spin 1s linear infinite;
+  vertical-align: middle;
 }
 
 /* === ANIMACIONES === */
@@ -90,7 +106,7 @@ body {
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(25px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -134,32 +150,12 @@ body {
   }
 }
 
-/* === ANIMACIONES === */
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 0.8rem;
+    padding: 1rem 1.2rem;
   }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* === SPINNER === */
-.icon-spin {
-  animation: spin 1s linear infinite;
-  vertical-align: middle;
-  color: #c77dff;
 }
 
 /* === NAVBAR PRINCIPAL === */
@@ -236,19 +232,11 @@ body {
   transform: translateY(-1px);
 }
 
-/* === RESPONSIVE === */
-@media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    gap: 0.8rem;
-    padding: 1rem 1.2rem;
-  }
-}
-
 /* El contenido principal ocupa todo el espacio disponible */
 .main-content {
   flex: 1;
   display: flex;
+  padding: 0vw 2.5rem 1.5rem;
   align-items: center;
   justify-content: center;
 }
@@ -305,7 +293,6 @@ body {
   display: flex;
   align-items: flex-start;
   gap: 1.5rem;
-  margin-bottom: 2rem;
 }
 
 .detalles-imagen {

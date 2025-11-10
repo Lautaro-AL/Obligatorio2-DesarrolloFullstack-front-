@@ -162,11 +162,6 @@
 }
 
 /* === ERRORES Y CARGA === */
-.error {
-  color: #ff6b6b;
-  font-size: 0.9rem;
-  margin-top: -0.4rem;
-}
 
 .modificar-loading,
 .modificar-error {

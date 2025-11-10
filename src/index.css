@@ -13,3 +13,19 @@ body {
   min-height: 100vh;
   color: #f1f5f9;
 }
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", "Poppins", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #10002b;
+  color: #e0aaff;
+  overflow-y: auto; /* scroll vertical solo si es necesario */
+  overflow-x: hidden; /* evita scroll horizontal */
+}

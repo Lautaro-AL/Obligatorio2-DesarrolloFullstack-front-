@@ -56,76 +56,81 @@ const Dashboard = () => {
 
   return (
     //CAMBIAR EL ALERT AL ELIMNIAR POR LOS CARTELES DE LA ULT CLASE
-    <div className="dashboard">
-      <div className="dashboard-top">
-        <h1 className="dashboard-title">{t("playlist")}</h1>
+    <>
+      <div className="dashboard">
+        <div className="dashboard-top">
+          <h1 className="dashboard-title">{t("playlist")}</h1>
 
-        <div
-          className={`crear-playlist-inline ${mostrarCrear ? "activo" : ""}`}
-        >
-          {!mostrarCrear && (
-            <button
-              className="btn btn-create"
-              onClick={() => setMostrarCrear(true)}
-            >
-              {t("createPlaylist")}
-            </button>
-          )}
-
-          {mostrarCrear && (
-            <CrearPlaylist
-              token={token}
-              onClose={() => setMostrarCrear(false)}
-              onCreated={() => {
-                listarPlaylists();
-                setMostrarCrear(false);
-              }}
-            />
-          )}
-        </div>
-      </div>
-      <section className="playlist-grid">
-        {playlists.length > 0 ? (
-          playlists.map((p) => (
-            <article
-              key={p._id}
-              className="playlist-card"
-              onClick={() => detallesPlaylist(p._id)}
-            >
-              <img src={p.imagen} alt={p.nombre} className="playlist-image" />
-
-              <div className="playlist-info">
-                <h3>{p.nombre}</h3>
-                <p>{p.descripcion}</p>
-                <span>{p.canciones.length} canciones</span>
-              </div>
-
-              <div
-                className="playlist-actions"
-                onClick={(e) => e.stopPropagation()}
+          <div
+            className={`crear-playlist-inline ${mostrarCrear ? "activo" : ""}`}
+          >
+            {!mostrarCrear && (
+              <button
+                className="btn btn-create"
+                onClick={() => setMostrarCrear(true)}
               >
-                <button
-                  className="btn-icon edit"
-                  onClick={() => modificarPlaylist(p._id)}
-                  title="Editar playlist"
+                {t("createPlaylist")}
+              </button>
+            )}
+
+            {mostrarCrear && (
+              <CrearPlaylist
+                token={token}
+                onClose={() => setMostrarCrear(false)}
+                onCreated={() => {
+                  listarPlaylists();
+                  setMostrarCrear(false);
+                }}
+              />
+            )}
+          </div>
+        </div>
+        <section className="playlist-grid">
+          {playlists.length > 0 ? (
+            playlists.map((p) => (
+              <article
+                key={p._id}
+                className="playlist-card"
+                onClick={() => detallesPlaylist(p._id)}
+              >
+                <img src={p.imagen} alt={p.nombre} className="playlist-image" />
+
+                <div className="playlist-info">
+                  <h3>{p.nombre}</h3>
+                  <p>{p.descripcion}</p>
+                  <span>{p.canciones.length} canciones</span>
+                </div>
+
+                <div
+                  className="playlist-actions"
+                  onClick={(e) => e.stopPropagation()}
                 >
-                  <Edit2 size={18} />
-                </button>
-                <button
-                  className="btn-icon delete"
-                  onClick={() => eliminarPlaylist(p)}
-                  title="Eliminar playlist"
-                >
-                  <Trash2 size={18} />
-                </button>
-              </div>
-            </article>
-          ))
-        ) : (
-          <p className="no-playlists">Todavía no tenés playlists creadas 🎧</p>
-        )}
-      </section>
-    </div>
+                  <button
+                    className="btn-icon edit"
+                    onClick={() => modificarPlaylist(p._id)}
+                    title="Editar playlist"
+                  >
+                    <Edit2 size={18} />
+                  </button>
+                  <button
+                    className="btn-icon delete"
+                    onClick={() => eliminarPlaylist(p)}
+                    title="Eliminar playlist"
+                  >
+                    <Trash2 size={18} />
+                  </button>
+                </div>
+              </article>
+            ))
+          ) : (
+            <p className="no-playlists">
+              Todavía no tenés playlists creadas 🎧
+            </p>
+          )}
+        </section>
+        <div> </div>
+      </div>
+    </>
   );
 };
 
