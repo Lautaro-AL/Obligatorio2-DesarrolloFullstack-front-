@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Loader2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const ModificarRol = () => {
   const { username } = useParams();
@@ -11,7 +12,7 @@ const ModificarRol = () => {
   const [loading, setLoading] = useState(false);
   const [planes, setPlanes] = useState([]);
   const [usuario, setUsuario] = useState(null);
-
+  const { t } = useTranslation();
   useEffect(() => {
     const obtenerUsuario = async () => {
       try {
@@ -105,7 +106,9 @@ const ModificarRol = () => {
 
   return (
     <div className="cambiar-plan-container">
-      <h2>Mi plan actual: {usuario.plan.nombre}</h2>
+      <h2>
+        {t("plan")} {usuario.plan.nombre}
+      </h2>
       <div>
         <button
           onClick={cambiarAPlanPremium}

@@ -7,6 +7,7 @@ import { Loader2 } from "lucide-react";
 import { registerSchema } from "../validators/auth.validators";
 import { useForm } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
+import { useTranslation } from "react-i18next";
 
 const Registro = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const Registro = () => {
   const [confirmPass, setConfirmPass] = useState("");
   const [passInvalido, setPassInvalido] = useState(false);
   const [error, setError] = useState(null);
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
 
   const {
@@ -59,19 +61,19 @@ const Registro = () => {
   return (
     <div className="containerAuth">
       <div className="card">
-        <h2>Crear cuenta</h2>
+        <h2>{t("createAccount")}</h2>
 
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
-          <label htmlFor="username">Nombre de usuario</label>
+          <label htmlFor="username">{t("username")}</label>
           <input
             id="username"
-            placeholder="Tu usuario"
+            placeholder={t("username")}
             {...register("username")}
           />
           {errors.username && (
             <p className="error">{errors.username.message}</p>
           )}
-          <label htmlFor="password">Contraseña</label>
+          <label htmlFor="password">{t("password")}</label>
           <input
             type="password"
             id="password"
@@ -82,7 +84,7 @@ const Registro = () => {
           {errors.password && (
             <p className="error">{errors.password.message}</p>
           )}
-          <label htmlFor="confirmPassword">Repetir contraseña</label>
+          <label htmlFor="confirmPassword">{t("rePass")}</label>
           <input
             type="password"
             id="confirmPassword"

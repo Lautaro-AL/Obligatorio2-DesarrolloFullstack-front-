@@ -1,4 +1,10 @@
 {
+    "plan": "My current plan :",
+    "Categoria:": "Category:",
+    "Canciones por Categoría": "Songs by Category, Filter: ",
+    "createAccount": "Create account",
+    "noTenesCuenta": "Dont have account?",
+    "loginExitoso": "🎧Login successful!",
     "todasCanciones": "All the songs",
     "playlistVacia": "This playlist doesn't have any songs yet.",
     "generos": "Genres in the Playlist",
@@ -9,18 +15,11 @@
     "back": "Back",
     "playlist": "Your Playlist",
     "login": "Login",
+    "register": "Register",
     "Logout": "Logout",
     "username": "Username",
     "password": "Password",
-    "submit": "Submit",
-    "cancel": "Cancel",
-    "profile": "Profile",
-    "settings": "Settings",
-    "help": "Help",
-    "search": "Search",
-    "home": "Home",
-    "about": "About",
-    "contact": "Contact",
     "createPlaylist": "+ New Playlist",
-    "language": "🎧 Language changed!"
+    "language": "🎧 Language changed!",
+    "rePass": "Repeat Password"
 }

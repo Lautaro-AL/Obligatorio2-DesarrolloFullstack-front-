@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
 import "../../canciones.css";
+import { useTranslation } from "react-i18next";
 
 const FiltroCanciones = () => {
   const [canciones, setCanciones] = useState([]);
@@ -9,7 +10,7 @@ const FiltroCanciones = () => {
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("todas");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const { t } = useTranslation();
   useEffect(() => {
     const obtenerCategorias = async () => {
       try {
@@ -60,12 +61,11 @@ const FiltroCanciones = () => {
   return (
     <div className="dashboard-canciones">
       <header className="dashboard-canciones-header">
-        <h2 className="dashboard-canciones-titulo">Canciones por Categoría</h2>
+        <h2 className="dashboard-canciones-titulo">
+          {t("Canciones por Categoría")}
+        </h2>
 
         <div className="dashboard-canciones-select">
-          <label htmlFor="categoria" className="dashboard-canciones-label">
-            Filtrar por categoría:
-          </label>
           <select
             id="categoria"
             value={categoriaSeleccionada}

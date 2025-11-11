@@ -220,6 +220,7 @@
   color: #e0b3ff;
   text-shadow: 0 0 6px rgba(224, 179, 255, 0.4);
   padding-right: 1rem;
+  margin: 0;
 }
 
 /* === SELECT === */

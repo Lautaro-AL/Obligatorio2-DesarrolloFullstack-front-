@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router";
 import axios from "axios";
@@ -6,6 +6,8 @@ import { loguear } from "../features/usuario.slice";
 import { Loader2 } from "lucide-react";
 import "../auth.css";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
+
 const Login = () => {
   const campoUsuario = useRef(null);
   const campoPassword = useRef(null);
@@ -14,6 +16,7 @@ const Login = () => {
   const [error, setErorr] = useState(null);
   const [loading, setLoading] = useState(false);
   const [camposInvalidos, setCamposInvalidos] = useState(true);
+  const { t } = useTranslation();
 
   const verificarCampos = () => {
     setCamposInvalidos(
@@ -40,7 +43,7 @@ const Login = () => {
 
       dispatch(loguear());
       navigate("/dashboard");
-      toast("🎧¡Inicio de sesión exitoso!");
+      toast(t());
     } catch (err) {
       toast("Error al iniciar sesión. Verifica tus credenciales.");
       setErorr(err.response?.data?.message || "Credenciales inválidas");
@@ -52,20 +55,20 @@ const Login = () => {
     <div>
       <div className="containerAuth">
         <div className="card " id="clogin">
-          <h2>Iniciar sesión</h2>
+          <h2>{t("login")}</h2>
           <form className="form" onSubmit={ingresar}>
-            <label htmlFor="username">Nombre de usuario</label>
+            <label htmlFor="username">{t("username")}</label>
             <input
               type="text"
               id="username"
               name="username"
               ref={campoUsuario}
               onChange={verificarCampos}
-              placeholder="Tu usuario"
+              placeholder={t("username")}
               required
             />
 
-            <label htmlFor="password">Contraseña</label>
+            <label htmlFor="password">{t("password")}</label>
             <input
               type="password"
               id="password"
@@ -92,9 +95,9 @@ const Login = () => {
             </button>
 
             <p className="text-small">
-              No tenes una cuenta?{" "}
+              {t("noTenesCuenta")}{" "}
               <Link to="/registro" id="link">
-                Registrate
+                {t("register")}
               </Link>
             </p>
           </form>
