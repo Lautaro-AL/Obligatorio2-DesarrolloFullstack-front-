@@ -3,6 +3,7 @@ import { desloguear } from "../features/usuario.slice";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import { ListMusic } from "lucide-react";
 
 const Contenedor = () => {
   const dispatch = useDispatch();
@@ -28,7 +29,9 @@ const Contenedor = () => {
     i18n.changeLanguage(nuevoIdioma);
     toast(t("language"));
   };
-
+  const filtroCancines = () => {
+    navigate(`dashboard/song`);
+  };
   const modificarUsuario = () => {
     navigate(`dashboard/modificar-usuario/${username}`);
   };
@@ -42,6 +45,12 @@ const Contenedor = () => {
         <nav className="navbar-links">
           {isLogged && (
             <>
+              <ListMusic
+                size={20}
+                onClick={filtroCancines}
+                className="user-button"
+              />
+
               <a onClick={modificarUsuario} className="user-button">
                 {username}
               </a>

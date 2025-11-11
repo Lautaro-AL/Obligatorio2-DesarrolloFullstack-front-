@@ -1,4 +1,3 @@
-/* === 🌌 CONTENEDOR PRINCIPAL === */
 .modificar-container {
   max-width: 850px;
   margin: 2.5rem auto;
@@ -25,7 +24,6 @@
   margin-bottom: 1.5rem;
 }
 
-/* === BOTÓN VOLVER === */
 .btn-volver {
   display: flex;
   align-items: center;
@@ -45,14 +43,12 @@
   transform: translateX(-4px);
 }
 
-/* === FORMULARIO === */
 .modificar-form {
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
 
-/* === CAMPOS DE TEXTO === */
 .modificar-columna {
   display: flex;
   flex-direction: column;
@@ -85,7 +81,6 @@
   background: rgba(36, 0, 70, 0.9);
 }
 
-/* === IMAGEN Y PREVIEW === */
 .modificar-imagen {
   display: flex;
   flex-direction: column;
@@ -113,7 +108,6 @@
   box-shadow: 0 0 25px rgba(199, 125, 255, 0.8);
 }
 
-/* === BOTONES === */
 .modificar-buttons {
   display: flex;
   justify-content: flex-end;
@@ -161,8 +155,6 @@
   transform: none;
 }
 
-/* === ERRORES Y CARGA === */
-
 .modificar-loading,
 .modificar-error {
   text-align: center;
@@ -173,13 +165,4 @@
 
 .icon-spin {
   animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }

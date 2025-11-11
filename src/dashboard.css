@@ -1,25 +1,22 @@
-/* === 🌌 LAYOUT GENERAL === */
 .layout {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Ocupa toda la pantalla */
+  min-height: 100vh;
   background: linear-gradient(135deg, #10002b, #240046, #3c096c);
   color: #f8f6ff;
   overflow-x: hidden;
 }
 
-/* === CONTENIDO PRINCIPAL === */
 .main-content {
-  flex: 1; /* Ocupa todo el espacio restante bajo el navbar */
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
   padding: 2rem;
-  overflow-y: auto; /* Scroll solo si hace falta */
+  overflow-y: auto;
 }
 
-/* === DASHBOARD === */
 .dashboard {
   display: flex;
   flex-direction: column;
@@ -28,7 +25,6 @@
   height: 100%;
 }
 
-/* === SECCIÓN SUPERIOR (título + botón) === */
 .dashboard-top {
   display: flex;
   justify-content: space-between;
@@ -52,7 +48,6 @@
   text-shadow: 0 0 10px rgba(157, 78, 221, 0.5);
 }
 
-/* === BOTÓN CREAR === */
 .btn-create {
   background: linear-gradient(90deg, #7b2cbf, #9d4edd);
   border: none;
@@ -71,7 +66,6 @@
   box-shadow: 0 6px 16px rgba(199, 125, 255, 0.5);
 }
 
-/* === GRID DE PLAYLISTS === */
 .playlist-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -82,7 +76,6 @@
   padding-bottom: 2%;
 }
 
-/* === CARD DE PLAYLIST === */
 .playlist-card {
   position: relative;
   width: 100%;
@@ -101,7 +94,6 @@
   box-shadow: 0 10px 25px rgba(155, 67, 255, 0.5);
 }
 
-/* === IMAGEN DE PLAYLIST === */
 .playlist-image {
   width: 100%;
   height: 100%;
@@ -114,7 +106,6 @@
   filter: brightness(0.85);
 }
 
-/* === INFO SUPERPUESTA === */
 .playlist-info {
   position: absolute;
   bottom: 0;
@@ -140,7 +131,6 @@
   color: #cbb1ff;
 }
 
-/* === BOTONES EN LA CARD === */
 .playlist-actions {
   position: absolute;
   top: 8px;
@@ -176,7 +166,28 @@
   background: linear-gradient(135deg, #7b2cbf, #9d4edd);
 }
 
-/* === RESPONSIVE === */
+.crear-playlist-form {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.crear-playlist-form input {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.5rem;
+}
+
+.crear-playlist-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-left: auto;
+}
+
 @media (max-width: 1024px) {
   .playlist-grid {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -203,26 +214,4 @@
   .playlist-grid {
     grid-template-columns: 1fr 1fr;
   }
-}
-
-.crear-playlist-form {
-  display: flex;
-  align-items: center; /* ✅ centra verticalmente los inputs y botones */
-  gap: 1rem; /* separación entre campos y botones */
-  width: 100%;
-  flex-wrap: wrap; /* si el espacio no alcanza, bajan automáticamente */
-}
-
-.crear-playlist-form input {
-  flex: 1; /* ✅ los inputs ocupan todo el espacio disponible */
-  min-width: 200px;
-  padding: 0.5rem;
-}
-
-.crear-playlist-buttons {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 0.6rem;
-  margin-left: auto; /* ✅ empuja los botones a la derecha */
 }

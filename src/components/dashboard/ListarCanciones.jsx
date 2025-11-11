@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Music2, Plus, Loader2 } from "lucide-react";
-import "../../canciones.css";
+import { Plus, Loader2 } from "lucide-react";
 
 const ListarCanciones = ({ playlistId, onAgregada }) => {
   const [canciones, setCanciones] = useState([]);
@@ -9,7 +8,6 @@ const ListarCanciones = ({ playlistId, onAgregada }) => {
   const [agregando, setAgregando] = useState(false);
   const [error, setError] = useState(null);
 
-  // 🔹 Buscar todas las canciones al montar
   useEffect(() => {
     const obtenerCanciones = async () => {
       try {
@@ -32,10 +30,8 @@ const ListarCanciones = ({ playlistId, onAgregada }) => {
     obtenerCanciones();
   }, []);
 
-  // 🔹 Agregar canción a la playlist
   const agregarCancion = async (cancionId) => {
     setAgregando(true);
-    console.log("Agregando canción", cancionId, "a playlist", playlistId);
     try {
       const token = localStorage.getItem("token");
       await axios.post(

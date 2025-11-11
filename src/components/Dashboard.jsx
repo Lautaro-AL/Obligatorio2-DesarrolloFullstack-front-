@@ -5,7 +5,6 @@ import { Edit2, Trash2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import "../dashboard.css";
 import CrearPlaylist from "./dashboard/CrearPlaylist";
-import { t } from "i18next";
 import { toast } from "react-toastify";
 
 const Dashboard = () => {
@@ -59,9 +58,7 @@ const Dashboard = () => {
         <div className="dashboard-top">
           <h1 className="dashboard-title">{t("playlist")}</h1>
 
-          <div
-            className={`crear-playlist-inline ${mostrarCrear ? "activo" : ""}`}
-          >
+          <div className={`crear-playlist-inline `}>
             {!mostrarCrear && (
               <button
                 className="btn btn-create"
@@ -73,7 +70,6 @@ const Dashboard = () => {
 
             {mostrarCrear && (
               <CrearPlaylist
-                token={token}
                 onClose={() => setMostrarCrear(false)}
                 onCreated={() => {
                   listarPlaylists();

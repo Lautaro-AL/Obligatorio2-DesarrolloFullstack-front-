@@ -1,4 +1,3 @@
-/* === RESET GENERAL === */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -7,33 +6,25 @@
 }
 
 html {
-  height: auto; /* permite que la altura crezca según contenido */
-  scroll-behavior: smooth; /* opcional, para scroll suave */
-}
-
-body {
-  min-height: 100vh; /* asegura que al menos ocupe la pantalla */
-  background-color: #10002b;
-  color: #e0aaff;
-  overflow-y: auto; /* scroll vertical solo cuando sea necesario */
-  overflow-x: hidden; /* evita scroll horizontal */
-}
-
-#root {
-  min-height: 100%; /* crecerá con el contenido */
-  display: flex;
-  flex-direction: column; /* útil si tenés navbar + contenido */
+  height: auto;
+  scroll-behavior: smooth;
 }
 
 body {
   min-height: 100vh;
   background-color: #10002b;
   color: #e0aaff;
-  overflow-y: auto; /* scroll vertical solo si es necesario */
-  overflow-x: hidden; /* evita scroll horizontal */
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
-/* === PÁGINA 404 GENERAL === */
+#root {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 404 */
 .notfound-container {
   display: flex;
   justify-content: center;
@@ -45,7 +36,6 @@ body {
   animation: fadeInBg 1s ease-in-out;
 }
 
-/* === TARJETA PRINCIPAL === */
 .notfound-card {
   border: 2px solid rgba(199, 125, 255, 0.25);
   border-radius: 16px;
@@ -55,7 +45,6 @@ body {
   animation: fadeInUp 0.8s ease;
 }
 
-/* === TÍTULO 404 === */
 .notfound-title {
   font-size: 6rem;
   font-weight: 700;
@@ -66,7 +55,6 @@ body {
   animation: pulse 2s infinite ease-in-out;
 }
 
-/* === TEXTO SECUNDARIO === */
 .notfound-text {
   font-size: 1.3rem;
   color: #e0aaff;
@@ -74,7 +62,6 @@ body {
   font-weight: 500;
 }
 
-/* === SECCIÓN DE CARGA / REDIRECCIÓN === */
 .loading {
   display: flex;
   align-items: center;
@@ -91,7 +78,6 @@ body {
   vertical-align: middle;
 }
 
-/* === ANIMACIONES === */
 @keyframes fadeInBg {
   from {
     opacity: 0;
@@ -135,30 +121,6 @@ body {
   }
 }
 
-/* === RESPONSIVE === */
-@media (max-width: 600px) {
-  .notfound-card {
-    padding: 2rem;
-  }
-
-  .notfound-title {
-    font-size: 4rem;
-  }
-
-  .notfound-text {
-    font-size: 1.1rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    gap: 0.8rem;
-    padding: 1rem 1.2rem;
-  }
-}
-
-/* === NAVBAR PRINCIPAL === */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -181,7 +143,6 @@ body {
   box-shadow: 0 6px 25px rgba(155, 67, 255, 0.4);
 }
 
-/* === LOGO === */
 .navbar-logo {
   font-size: 1.9rem;
   color: #c77dff;
@@ -196,7 +157,6 @@ body {
   text-shadow: 0 0 12px #9d4edd;
 }
 
-/* === LINKS === */
 .navbar-links {
   display: flex;
   align-items: center;
@@ -232,7 +192,6 @@ body {
   transform: translateY(-1px);
 }
 
-/* El contenido principal ocupa todo el espacio disponible */
 .main-content {
   flex: 1;
   display: flex;
@@ -241,7 +200,6 @@ body {
   justify-content: center;
 }
 
-/* === BOTÓN FLOTANTE === */
 .btn-idioma {
   position: fixed;
   bottom: 2rem;
@@ -324,23 +282,6 @@ body {
   color: #777;
 }
 
-/* 🔹 Placeholder para la gráfica */
-.detalles-graph {
-  margin: 1.5rem 0;
-  border: 1px dashed #bbb;
-  border-radius: 10px;
-  padding: 1.5rem;
-  text-align: center;
-  color: #777;
-  font-style: italic;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  height: 80vh;
-  width: 20vw;
-}
-
 .detalles-canciones h2 {
   display: flex;
   align-items: center;
@@ -373,4 +314,42 @@ body {
 
 .btn-cambio {
   margin-right: 10px;
+}
+
+@media (max-width: 600px) {
+  .notfound-card {
+    padding: 2rem;
+  }
+
+  .notfound-title {
+    font-size: 4rem;
+  }
+
+  .notfound-text {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 0.8rem;
+    padding: 1rem 1.2rem;
+  }
+}
+
+.detalles-graph {
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
+}
+.detalles-graph canvas {
+  width: 100% !important;
+  height: 100% !important;
+  position: relative !important;
 }

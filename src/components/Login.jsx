@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router";
 import axios from "axios";
@@ -13,6 +13,13 @@ const Login = () => {
   const dispatch = useDispatch();
   const [error, setErorr] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [camposInvalidos, setCamposInvalidos] = useState(true);
+
+  const verificarCampos = () => {
+    setCamposInvalidos(
+      campoPassword.current.value === "" || campoUsuario.current.value === ""
+    );
+  };
 
   const ingresar = async (e) => {
     e.preventDefault();
@@ -35,7 +42,6 @@ const Login = () => {
       navigate("/dashboard");
       toast("🎧¡Inicio de sesión exitoso!");
     } catch (err) {
-      console.error(err);
       toast("Error al iniciar sesión. Verifica tus credenciales.");
       setErorr(err.response?.data?.message || "Credenciales inválidas");
     } finally {
@@ -54,6 +60,7 @@ const Login = () => {
               id="username"
               name="username"
               ref={campoUsuario}
+              onChange={verificarCampos}
               placeholder="Tu usuario"
               required
             />
@@ -64,6 +71,7 @@ const Login = () => {
               id="password"
               name="password"
               ref={campoPassword}
+              onChange={verificarCampos}
               placeholder="********"
               required
             />
@@ -72,7 +80,7 @@ const Login = () => {
             <button
               type="submit"
               className="btn btn-primary"
-              disabled={loading}
+              disabled={loading || camposInvalidos}
             >
               {loading ? (
                 <>

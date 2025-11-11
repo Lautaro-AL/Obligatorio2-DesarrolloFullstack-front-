@@ -1,4 +1,3 @@
-/* === Página completa === */
 .detalles-page {
   display: flex;
   flex-direction: column;
@@ -28,7 +27,6 @@
   transform: translateY(-1px);
 }
 
-/* === Contenedor de columnas === */
 .detalles-main {
   display: flex;
   flex: 1;
@@ -36,7 +34,6 @@
   height: 60vh;
 }
 
-/* Columna izquierda: gráfica */
 .detalles-left {
   flex: 1;
   background-color: #240046;
@@ -48,7 +45,6 @@
   overflow: hidden;
 }
 
-/* Columna central: playlist e info */
 .detalles-center {
   flex: 2;
   background-color: #3c096c;
@@ -60,7 +56,6 @@
   overflow-y: hidden;
 }
 
-/* Header central: imagen + info lado a lado */
 .detalles-header {
   display: flex;
   gap: 1rem;
@@ -98,15 +93,14 @@
   font-size: 0.9rem;
 }
 
-/* Lista de canciones central */
 .detalles-canciones {
   margin-top: 1rem;
 }
 
 .cancion-lista-medio {
-  max-height: 35vh; /* altura máxima, ajusta según necesites */
-  overflow-y: auto; /* activa scroll solo cuando sobrepasa la altura */
-  padding-right: 8px; /* espacio para que no tape contenido */
+  max-height: 35vh;
+  overflow-y: auto;
+  padding-right: 8px;
 }
 
 .cancion-item {
@@ -127,7 +121,7 @@
   text-align: center;
 }
 
-/* Columna derecha: Lista de canciones externas */
+/* config de scroll*/
 .detalles-right {
   flex: 1;
   background-color: #5a189a;
@@ -136,7 +130,6 @@
   overflow-y: hidden;
 }
 
-/* Scroll minimalista para la derecha */
 .detalles-right::-webkit-scrollbar {
   width: 8px;
 }
@@ -152,7 +145,6 @@
   background: #9d4edd;
 }
 
-/* Scroll minimalista para la columna central si hay muchas canciones */
 .detalles-center::-webkit-scrollbar {
   width: 8px;
 }
@@ -171,11 +163,11 @@
 .btn-agregar {
   display: flex;
   align-items: center;
-  justify-content: center; /* centra el icono */
+  justify-content: center;
   width: 32px;
   height: 32px;
-  background-color: #7b2cbf; /* color principal */
-  color: #e0aaff; /* color del icono */
+  background-color: #7b2cbf;
+  color: #e0aaff;
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -183,18 +175,174 @@
 }
 
 .btn-agregar:hover:not(:disabled) {
-  background-color: #9d4edd; /* hover */
+  background-color: #9d4edd;
   transform: scale(1.05);
 }
 
 .btn-agregar:disabled {
-  background-color: #3c096c; /* deshabilitado */
+  background-color: #3c096c;
   cursor: not-allowed;
   opacity: 0.7;
 }
 
 .detalles-lista {
-  max-height: 70vh; /* altura máxima, ajusta según necesites */
-  overflow-y: auto; /* activa scroll solo cuando sobrepasa la altura */
-  padding-right: 8px; /* espacio para que no tape contenido */
+  max-height: 70vh;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+/* === 🎧 LAYOUT GENERAL === */
+.dashboard-canciones {
+  display: flex;
+  flex-direction: column;
+  color: #f8f9fa;
+  min-height: 0vh;
+  padding: 1.5rem 2rem;
+  box-sizing: border-box;
+}
+
+/* === HEADER FIJO DENTRO DE LA SECCIÓN === */
+.dashboard-canciones-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(150, 100, 255, 0.2);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 0 10px rgba(120, 0, 255, 0.2);
+}
+
+.dashboard-canciones-titulo {
+  font-size: 1.6rem;
+  color: #e0b3ff;
+  text-shadow: 0 0 6px rgba(224, 179, 255, 0.4);
+  padding-right: 1rem;
+}
+
+/* === SELECT === */
+.dashboard-canciones-select {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.dashboard-canciones-label {
+  font-size: 0.9rem;
+  color: #d9b3ff;
+}
+
+.dashboard-canciones-select select {
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  background-color: #2d005f;
+  border: 1px solid #8c3aff;
+  color: #fff;
+  outline: none;
+  transition: 0.3s;
+  font-size: 1rem;
+}
+
+.dashboard-canciones-select select:hover,
+.dashboard-canciones-select select:focus {
+  border-color: #b86bff;
+  box-shadow: 0 0 8px rgba(184, 107, 255, 0.3);
+}
+
+/* === CUERPO === */
+.dashboard-canciones-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 0 50px 0;
+}
+
+/* === ESTADOS === */
+.dashboard-canciones-loading,
+.dashboard-canciones-error,
+.dashboard-canciones-vacio {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1.1rem;
+}
+
+.dashboard-canciones-error {
+  color: #ff6b6b;
+}
+
+.dashboard-canciones-vacio {
+  color: #ccc;
+  font-style: italic;
+}
+
+/* === GRID DE CANCIONES === */
+.dashboard-canciones-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.2rem;
+  margin-top: 1rem;
+}
+
+/* === TARJETAS === */
+.dashboard-canciones-card {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(150, 100, 255, 0.25);
+  border-radius: 14px;
+  padding: 1rem;
+  transition: 0.3s ease;
+  box-shadow: 0 0 10px rgba(120, 0, 255, 0.15);
+}
+
+.dashboard-canciones-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 20px rgba(150, 100, 255, 0.35);
+}
+
+.dashboard-canciones-card h3 {
+  color: #e8c4ff;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.dashboard-canciones-card p {
+  font-size: 0.95rem;
+  color: #ddd;
+  margin: 0.25rem 0;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(20, 0, 40, 0.6);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #8c3aff, #b86bff);
+  border-radius: 10px;
+  border: 2px solid rgba(20, 0, 40, 0.6);
+  transition: background 0.3s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #b86bff, #dba8ff);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #b86bff rgba(20, 0, 40, 0.6);
+}
+
+.dashboard-canciones {
+  scrollbar-width: thin;
+  scrollbar-color: #a05eff rgba(20, 0, 40, 0.7);
+}
+
+.dashboard-canciones::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #a05eff, #c68aff);
 }

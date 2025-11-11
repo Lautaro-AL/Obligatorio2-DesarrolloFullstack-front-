@@ -7,9 +7,11 @@ import { Loader2, X } from "lucide-react";
 import "../../dashboard.css";
 import { toast } from "react-toastify";
 import { t } from "i18next";
+import { useSelector } from "react-redux";
 
-const CrearPlaylist = ({ token, onCreated, onClose }) => {
+const CrearPlaylist = ({ onCreated, onClose }) => {
   const [error, setError] = useState(null);
+  const { token } = useSelector((state) => state.usuario);
   const [loading, setLoading] = useState(false);
 
   const {
@@ -37,7 +39,9 @@ const CrearPlaylist = ({ token, onCreated, onClose }) => {
       );
 
       reset();
-      onCreated?.();
+      if (onCreated) {
+        onCreated();
+      }
       toast(t("playlistCreate"));
     } catch (err) {
       console.error(err);
@@ -50,32 +54,30 @@ const CrearPlaylist = ({ token, onCreated, onClose }) => {
 
   return (
     <form className="crear-playlist-form" onSubmit={handleSubmit(onSubmit)}>
+      {error && <p className="error">{error}</p>}
+      {errors.descripcion && (
+        <p className="error">{errors.descripcion.message}</p>
+      )}{" "}
+      {errors.imagen && <p className="error">{errors.imagen.message}</p>}
+      {errors.nombre && <p className="error">{errors.nombre.message}</p>}
       <input
         type="text"
         placeholder="Nombre de la playlist"
         {...register("nombre")}
         className={errors.nombre ? "input-error" : ""}
       />
-      {errors.nombre && <p className="error">{errors.nombre.message}</p>}
-
       <input
         type="text"
         placeholder="Descripción"
         {...register("descripcion")}
         className={errors.descripcion ? "input-error" : ""}
       />
-      {errors.descripcion && (
-        <p className="error">{errors.descripcion.message}</p>
-      )}
-
       <input
         type="text"
         placeholder="Imagen URL"
         {...register("imagen")}
         className={errors.imagen ? "input-error" : ""}
       />
-      {errors.imagen && <p className="error">{errors.imagen.message}</p>}
-
       <div className="crear-playlist-buttons">
         <button
           type="button"
@@ -89,8 +91,6 @@ const CrearPlaylist = ({ token, onCreated, onClose }) => {
           {loading ? <Loader2 className="icon-spin" size={18} /> : "Crear"}
         </button>
       </div>
-
-      {error && <p className="error">{error}</p>}
     </form>
   );
 };

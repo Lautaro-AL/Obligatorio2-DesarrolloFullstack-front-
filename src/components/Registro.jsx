@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router";
 import axios from "axios";
@@ -11,6 +11,9 @@ import { joiResolver } from "@hookform/resolvers/joi";
 const Registro = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [password, setPassword] = useState("");
+  const [confirmPass, setConfirmPass] = useState("");
+  const [passInvalido, setPassInvalido] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -21,6 +24,10 @@ const Registro = () => {
   } = useForm({
     resolver: joiResolver(registerSchema),
   });
+
+  useEffect(() => {
+    setPassInvalido(password !== confirmPass);
+  }, [password, confirmPass]);
 
   const onSubmit = async (data) => {
     setError(null);
@@ -41,7 +48,6 @@ const Registro = () => {
       dispatch(loguear({ username, token: response.data.token }));
       navigate("/dashboard");
     } catch (err) {
-      console.error(err);
       const apiError =
         err.response?.data?.error || "Error inesperado en el registro";
       setError(apiError);
@@ -71,6 +77,7 @@ const Registro = () => {
             id="password"
             placeholder="********"
             {...register("password")}
+            onChange={(e) => setPassword(e.target.value)}
           />
           {errors.password && (
             <p className="error">{errors.password.message}</p>
@@ -81,12 +88,17 @@ const Registro = () => {
             id="confirmPassword"
             placeholder="********"
             {...register("confirmPassword")}
+            onChange={(e) => setConfirmPass(e.target.value)}
           />
           {errors.confirmPassword && (
             <p className="error">{errors.confirmPassword.message}</p>
           )}
 
-          <button type="submit" className="btn btn-primary" disabled={loading}>
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={(loading, passInvalido)}
+          >
             {loading ? (
               <Loader2 className="icon-spin" size={18} />
             ) : (

@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router"; // ← Importante
+import { useParams } from "react-router";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Loader2 } from "lucide-react";
 
 const ModificarRol = () => {
-  const { username } = useParams(); // ← lee el username de la URL
+  const { username } = useParams();
   const { token } = useSelector((state) => state.usuario);
   const [loading, setLoading] = useState(false);
   const [planes, setPlanes] = useState([]);
@@ -20,7 +21,6 @@ const ModificarRol = () => {
         );
         setUsuario(res.data);
       } catch (err) {
-        console.error(err);
         toast.error("Error al obtener el usuario");
       }
     };
@@ -33,7 +33,6 @@ const ModificarRol = () => {
         );
         setPlanes(res.data);
       } catch (err) {
-        console.error(err);
         toast.error("Error al obtener los planes");
       }
     };
@@ -66,7 +65,6 @@ const ModificarRol = () => {
       setUsuario(res.data.usuarioModificado);
       toast.success("Plan actualizado a plus con éxito");
     } catch (error) {
-      console.error(error);
       toast.error("Error al cambiar de plan");
     } finally {
       setLoading(false);
@@ -97,13 +95,13 @@ const ModificarRol = () => {
       setUsuario(res.data.usuarioModificado);
       toast.success("Plan actualizado a Premium con éxito");
     } catch (error) {
-      console.error(error);
       toast.error("Error al cambiar de plan");
     } finally {
       setLoading(false);
     }
   };
-  if (!usuario) return <p>Cargando usuario...</p>;
+
+  if (!usuario) return <Loader2 className="icon-spin" size={90} />;
 
   return (
     <div className="cambiar-plan-container">

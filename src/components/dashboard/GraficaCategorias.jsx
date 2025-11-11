@@ -11,7 +11,7 @@ const GraficaCategorias = ({ categorias }) => {
           labels: categorias.map((c) => c.nombre),
           datasets: [
             {
-              label: "# of Votes",
+              label: "Canciones",
               data: categorias.map((c) => c.cantidad),
               backgroundColor: [
                 "rgba(255, 99, 132, 0.2)",
@@ -20,6 +20,8 @@ const GraficaCategorias = ({ categorias }) => {
                 "rgba(75, 192, 192, 0.2)",
                 "rgba(153, 102, 255, 0.2)",
                 "rgba(255, 159, 64, 0.2)",
+                "rgba(80, 255, 127, 0.2)",
+                "rgba(188, 255, 80, 0.2)",
               ],
               borderColor: [
                 "rgba(255, 99, 132, 1)",
@@ -28,6 +30,8 @@ const GraficaCategorias = ({ categorias }) => {
                 "rgba(75, 192, 192, 1)",
                 "rgba(153, 102, 255, 1)",
                 "rgba(255, 159, 64, 1)",
+                "rgba(56, 182, 89, 1)",
+                "rgba(151, 162, 49, 1)",
               ],
               borderWidth: 1,
             },

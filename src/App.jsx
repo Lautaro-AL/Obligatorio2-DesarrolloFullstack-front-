@@ -1,4 +1,3 @@
-import "./App.css";
 import Contenedor from "./components/Contenedor";
 import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
@@ -12,7 +11,8 @@ import { store } from "./store/store";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ModificarPlaylist from "./components/dashboard/ModificarPlaylist";
 import DetallesPlaylist from "./components/dashboard/DetallesPlaylist";
-import ModificarRol from "./components/profile/ModificarRol";
+import ModificarRol from "./components/contenedor/ModificarRol";
+import FiltroCanciones from "./components/contenedor/FiltroCanciones";
 import "./styles.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -41,6 +41,7 @@ const App = () => {
                 path="modificar-usuario/:username"
                 element={<ModificarRol />}
               />
+              <Route path="song" element={<FiltroCanciones />} />
             </Route>
             <Route path="*" element={<NoEncontrado />} />
           </Route>
