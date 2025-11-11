@@ -337,6 +337,8 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
+  height: 80vh;
+  width: 20vw;
 }
 
 .detalles-canciones h2 {
@@ -367,4 +369,8 @@ body {
 .sin-canciones {
   color: #666;
   font-style: italic;
+}
+
+.btn-cambio {
+  margin-right: 10px;
 }

@@ -2,6 +2,7 @@ import { NavLink, Outlet, useNavigate } from "react-router";
 import { desloguear } from "../features/usuario.slice";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 const Contenedor = () => {
   const dispatch = useDispatch();
@@ -18,12 +19,18 @@ const Contenedor = () => {
     navigate("/"); // redirige al login
   };
   const cambiarIdioma = () => {
-    const nuevoIdioma = i18n.language === "es" ? "en" : "es";
+    let nuevoIdioma;
+    if (i18n.language === "es") {
+      nuevoIdioma = "en";
+    } else {
+      nuevoIdioma = "es";
+    }
     i18n.changeLanguage(nuevoIdioma);
+    toast(t("language"));
   };
 
   const modificarUsuario = () => {
-    navigate("/modificar-usuario");
+    navigate(`dashboard/modificar-usuario/${username}`);
   };
   return (
     <div className="layout">

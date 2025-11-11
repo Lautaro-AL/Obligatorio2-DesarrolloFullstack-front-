@@ -5,6 +5,8 @@ import { Edit2, Trash2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import "../dashboard.css";
 import CrearPlaylist from "./dashboard/CrearPlaylist";
+import { t } from "i18next";
+import { toast } from "react-toastify";
 
 const Dashboard = () => {
   const [playlists, setPlaylists] = useState([]);
@@ -14,25 +16,22 @@ const Dashboard = () => {
   const { t } = useTranslation();
 
   const detallesPlaylist = (id) => {
-    console.log("Ver detalles de playlist:", id);
     navigate(`/dashboard/detalles-playlist/${id}`);
   };
   const modificarPlaylist = (id) => {
-    console.log("Modificar playlist:", id);
     navigate(`/dashboard/modificar-playlist/${id}`);
   };
 
   const eliminarPlaylist = async (playlist) => {
-    if (window.confirm(`¿Eliminar la playlist "${playlist.nombre}"?`)) {
-      try {
-        await axios.delete(
-          `https://obligatorio1-desarrollo-fullstack-v.vercel.app/v1/playlist/${playlist._id}`,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-        listarPlaylists();
-      } catch (err) {
-        console.error("Error eliminando playlist", err);
-      }
+    try {
+      await axios.delete(
+        `https://obligatorio1-desarrollo-fullstack-v.vercel.app/v1/playlist/${playlist._id}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      toast(t("elimnate"));
+      listarPlaylists();
+    } catch (err) {
+      console.error("Error eliminando playlist", err);
     }
   };
 
@@ -55,7 +54,6 @@ const Dashboard = () => {
   }, []);
 
   return (
-    //CAMBIAR EL ALERT AL ELIMNIAR POR LOS CARTELES DE LA ULT CLASE
     <>
       <div className="dashboard">
         <div className="dashboard-top">
@@ -98,7 +96,9 @@ const Dashboard = () => {
                 <div className="playlist-info">
                   <h3>{p.nombre}</h3>
                   <p>{p.descripcion}</p>
-                  <span>{p.canciones.length} canciones</span>
+                  <span>
+                    {p.canciones.length} {t("song")}
+                  </span>
                 </div>
 
                 <div

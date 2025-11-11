@@ -5,6 +5,9 @@ import { useForm } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { Loader2, X } from "lucide-react";
 import "../../dashboard.css";
+import { toast } from "react-toastify";
+import { t } from "i18next";
+
 const CrearPlaylist = ({ token, onCreated, onClose }) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -35,9 +38,11 @@ const CrearPlaylist = ({ token, onCreated, onClose }) => {
 
       reset();
       onCreated?.();
+      toast(t("playlistCreate"));
     } catch (err) {
       console.error(err);
       setError(err.response?.data?.message || "Error al crear la playlist");
+      toast.error(t("errorPlaylist"));
     } finally {
       setLoading(false);
     }

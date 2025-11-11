@@ -5,6 +5,7 @@ import axios from "axios";
 import { loguear } from "../features/usuario.slice";
 import { Loader2 } from "lucide-react";
 import "../auth.css";
+import { toast } from "react-toastify";
 const Login = () => {
   const campoUsuario = useRef(null);
   const campoPassword = useRef(null);
@@ -32,8 +33,10 @@ const Login = () => {
 
       dispatch(loguear());
       navigate("/dashboard");
+      toast("🎧¡Inicio de sesión exitoso!");
     } catch (err) {
       console.error(err);
+      toast("Error al iniciar sesión. Verifica tus credenciales.");
       setErorr(err.response?.data?.message || "Credenciales inválidas");
     } finally {
       setLoading(false);

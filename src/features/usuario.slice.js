@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isLogged: !!localStorage.getItem("token"), // !! convierte a booleano
   token: localStorage.getItem("token") || null,
+  username: localStorage.getItem("username"),
 };
 
 const usuarioSlice = createSlice({
@@ -12,7 +13,7 @@ const usuarioSlice = createSlice({
     loguear: (state) => {
       state.isLogged = true;
       state.token = localStorage.getItem("token");
-      state.username = localStorage.getItem("username") || "Usuario";
+      state.username = localStorage.getItem("username");
     },
     desloguear: (state) => {
       state.isLogged = false;

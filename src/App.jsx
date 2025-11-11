@@ -12,7 +12,10 @@ import { store } from "./store/store";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ModificarPlaylist from "./components/dashboard/ModificarPlaylist";
 import DetallesPlaylist from "./components/dashboard/DetallesPlaylist";
+import ModificarRol from "./components/profile/ModificarRol";
 import "./styles.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   return (
@@ -34,11 +37,23 @@ const App = () => {
                 path="detalles-playlist/:id"
                 element={<DetallesPlaylist />}
               />
+              <Route
+                path="modificar-usuario/:username"
+                element={<ModificarRol />}
+              />
             </Route>
             <Route path="*" element={<NoEncontrado />} />
           </Route>
         </Routes>
       </BrowserRouter>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={1500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        rtl={false}
+        theme="dark"
+      />
     </Provider>
   );
 };

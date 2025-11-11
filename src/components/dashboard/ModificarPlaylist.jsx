@@ -6,6 +6,7 @@ import { Loader2, ArrowLeft } from "lucide-react";
 import { playlistSchema } from "../../validators/auth.validators";
 import { useForm } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
+import { toast } from "react-toastify";
 
 const ModificarPlaylist = () => {
   const { id } = useParams();
@@ -34,7 +35,6 @@ const ModificarPlaylist = () => {
           { headers: { Authorization: `Bearer ${token}` } }
         );
         const data = res.data;
-        const lastImage = localStorage.getItem("lastUploadedImage");
         setValue("nombre", data.nombre);
         setValue("descripcion", data.descripcion);
         setValue("imagen", data.imagen);
@@ -71,6 +71,7 @@ const ModificarPlaylist = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       navigate(`/dashboard/detalles-playlist/${id}`);
+      toast("🎧 Modificada!");
     } catch (err) {
       console.error(err);
       setError("Error al guardar los cambios");

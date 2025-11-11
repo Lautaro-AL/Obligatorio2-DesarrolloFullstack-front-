@@ -1,4 +1,12 @@
 {
+    "todasCanciones": "All the songs",
+    "playlistVacia": "This playlist doesn't have any songs yet.",
+    "generos": "Genres in the Playlist",
+    "errorPlaylist": "Error creating the playlist. Please try again.",
+    "playlistCreate": "🎧 Playlist created successfully!",
+    "elimnate": "Playlist Deleted",
+    "song": "Songs",
+    "back": "Back",
     "playlist": "Your Playlist",
     "login": "Login",
     "Logout": "Logout",
@@ -8,11 +16,11 @@
     "cancel": "Cancel",
     "profile": "Profile",
     "settings": "Settings",
-    "language": "Language",
     "help": "Help",
     "search": "Search",
     "home": "Home",
     "about": "About",
     "contact": "Contact",
-    "createPlaylist": "+ New Playlist"
+    "createPlaylist": "+ New Playlist",
+    "language": "🎧 Language changed!"
 }

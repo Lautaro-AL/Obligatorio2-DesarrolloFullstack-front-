@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import axios from "axios";
-import { ArrowLeft, Music2, BarChart3, Loader2 } from "lucide-react";
+import { ArrowLeft, Music2, Loader2 } from "lucide-react";
 import ListarCanciones from "./ListarCanciones";
+import GraficaCategorias from "./GraficaCategorias";
+import { useTranslation } from "react-i18next";
+
 const DetallesPlaylist = () => {
+  const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
   const [playlist, setPlaylist] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [categorias, setCategorias] = useState([]);
 
   const buscarPlaylist = async () => {
     try {
@@ -29,6 +34,24 @@ const DetallesPlaylist = () => {
   useEffect(() => {
     buscarPlaylist();
   }, [id]);
+
+  useEffect(() => {
+    if (!playlist || !playlist.canciones) return;
+    const categorias = [];
+
+    for (const c of playlist.canciones) {
+      const nombreCat = c.categoria?.nombre;
+      const existente = categorias.find((cat) => cat.nombre === nombreCat);
+
+      if (existente) {
+        existente.cantidad++;
+      } else {
+        categorias.push({ nombre: nombreCat, cantidad: 1 });
+      }
+    }
+    setCategorias(categorias);
+  }, [playlist]);
+
   if (loading) return <Loader2 className="icon-spin" size={90} />;
   if (error) return <p className="detalles-error">{error}</p>;
   if (!playlist)
@@ -37,19 +60,14 @@ const DetallesPlaylist = () => {
   return (
     <div className="detalles-page">
       <button className="btn-volver" onClick={() => navigate("/dashboard")}>
-        <ArrowLeft size={18} /> Volver
+        <ArrowLeft size={18} /> {t("back")}
       </button>
 
       <div className="detalles-main">
-        {/* Columna izquierda: gráfica */}
         <div className="detalles-left">
-          <div className="detalles-graph">
-            <BarChart3 size={26} />
-            <p>Gráfica próximamente...</p>
-          </div>
+          <h2>{t("generos")}</h2>
+          <GraficaCategorias categorias={categorias} />
         </div>
-
-        {/* Columna central: info de la playlist */}
         <div className="detalles-center">
           <div className="detalles-header">
             <img
@@ -66,7 +84,6 @@ const DetallesPlaylist = () => {
             </div>
           </div>
 
-          {/* Lista de canciones de la playlist */}
           <div className="detalles-canciones">
             <h2>
               <Music2 size={20} /> Canciones
@@ -85,17 +102,14 @@ const DetallesPlaylist = () => {
                 ))}
               </ul>
             ) : (
-              <p className="sin-canciones">
-                Esta playlist aún no tiene canciones.
-              </p>
+              <p className="sin-canciones">{t("playlistVacia")}</p>
             )}
           </div>
         </div>
 
-        {/* Columna derecha: Lista de canciones externas */}
         <div className="detalles-right">
           <h2>
-            <Music2 size={20} /> Todas las canciones
+            <Music2 size={20} /> {t("todasCanciones")}
           </h2>
           <div className="detalles-lista">
             <ListarCanciones playlistId={id} onAgregada={buscarPlaylist} />
