@@ -43,7 +43,7 @@ const Login = () => {
 
       dispatch(loguear());
       navigate("/dashboard");
-      toast(t());
+      toast(t("loginExitoso"));
     } catch (err) {
       toast("Error al iniciar sesión. Verifica tus credenciales.");
       setErorr(err.response?.data?.message || "Credenciales inválidas");
