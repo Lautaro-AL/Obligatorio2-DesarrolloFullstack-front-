@@ -316,6 +316,22 @@ body {
   margin-right: 10px;
 }
 
+.detalles-graph {
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
+}
+.detalles-graph canvas {
+  width: 100% !important;
+  height: 100% !important;
+  position: relative !important;
+}
+
 @media (max-width: 600px) {
   .notfound-card {
     padding: 2rem;
@@ -336,20 +352,4 @@ body {
     gap: 0.8rem;
     padding: 1rem 1.2rem;
   }
-}
-
-.detalles-graph {
-  width: 400px;
-  height: 400px;
-  margin: 0 auto;
-  position: relative;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 20px;
-  padding: 20px;
-  box-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
-}
-.detalles-graph canvas {
-  width: 100% !important;
-  height: 100% !important;
-  position: relative !important;
 }

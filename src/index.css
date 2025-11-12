@@ -26,6 +26,6 @@ body {
   min-height: 100vh;
   background-color: #10002b;
   color: #e0aaff;
-  overflow-y: auto; /* scroll vertical solo si es necesario */
-  overflow-x: hidden; /* evita scroll horizontal */
+  overflow-y: auto;
+  overflow-x: hidden;
 }

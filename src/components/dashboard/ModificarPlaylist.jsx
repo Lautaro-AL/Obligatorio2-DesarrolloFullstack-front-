@@ -25,7 +25,6 @@ const ModificarPlaylist = () => {
     resolver: joiResolver(playlistSchema),
   });
 
-  // Cargar datos de la playlist
   useEffect(() => {
     const traerPlaylist = async () => {
       try {
@@ -50,7 +49,6 @@ const ModificarPlaylist = () => {
     traerPlaylist();
   }, [id, setValue]);
 
-  // Cuando se sube una imagen, actualiza form e imagen de preview
   const handleImageUpload = (url) => {
     setValue("imagen", url);
     setPreview(url);
